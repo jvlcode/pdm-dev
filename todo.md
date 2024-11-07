@@ -1,0 +1,1 @@
+remove AreaName field in AssignedArea

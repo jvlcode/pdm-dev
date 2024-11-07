@@ -1,0 +1,16 @@
+{
+  "name": "new-app",
+  "version": "1.0.0",
+  "description": "an E-commerce Website built with MERN stack.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "set NODE_ENV=development&& cd backend && npx nodemon",
+    "prod": "set NODE_ENV=production&&node backend/server.js",
+    "backend": "npm run dev",
+    "frontend": "cd frontend&&npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

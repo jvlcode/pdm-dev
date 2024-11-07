@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    command: ["mongod", "--bind_ip_all", "--storageEngine", "wiredTiger", "--dbpath", "/data/db"]
+    restart: always
+    tmpfs:
+      - /data/db  # Use tmpfs for MongoDB data storage
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - 8000:8000  # Assuming your Node.js app runs on port 8000
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/mernapp
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app  # Bind mount backend source code
+
+  frontend:
+    build: ./frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app  # Bind mount frontend source code
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+
+volumes:
+  mongo_data:
