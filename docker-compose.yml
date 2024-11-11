@@ -4,10 +4,14 @@ services:
 
   mongo:
     image: mongo
-    command: ["mongod", "--bind_ip_all", "--storageEngine", "wiredTiger", "--dbpath", "/data/db"]
     restart: always
     tmpfs:
       - /data/db  # Use tmpfs for MongoDB data storage
+    ports:
+      - 8001:27017
+    volumes:
+      - mongo_data:/data/db
+      - ./backend/db:/data-bkp  # Mount the backup directory here
 
   backend:
     build: ./backend
@@ -33,7 +37,6 @@ services:
       - ./frontend:/app  # Bind mount frontend source code
     environment:
       - CHOKIDAR_USEPOLLING=true
-
 
 volumes:
   mongo_data:
