@@ -5,8 +5,8 @@ const connectDatabase = require('./config/database');
 
 connectDatabase();
 
-const server = app.listen(process.env.PORT,()=>{
-    console.log(`My Server listening to the port: ${process.env.PORT} in  ${process.env.NODE_ENV} `)
+const server = app.listen(process.env.BACKEND_PORT,()=>{
+    console.log(`My Server listening to the port: ${process.env.BACKEND_PORT} in  ${process.env.NODE_ENV} `)
 })
 
 process.on('unhandledRejection',(err)=>{

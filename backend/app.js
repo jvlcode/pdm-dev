@@ -6,7 +6,7 @@ const path = require('path')
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-dotenv.config({path:path.join(__dirname,"config/config.env")});
+dotenv.config({path:path.join(__dirname,".env")});
 
 // Enable CORS for all routes
 app.use(cors());
@@ -28,12 +28,12 @@ app.use('/uploads', express.static(path.join(__dirname,'uploads') ) )
 // app.use('/api/v1/',payment);
 app.use('/api/v1/',contract);
 
-// if(process.env.NODE_ENV === "production") {
-//     app.use(express.static(path.join(__dirname, '../frontend/build')));
-//     app.get('*', (req, res) =>{
-//         res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
-//     })
-// }
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+    app.get('*', (req, res) =>{
+        res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
+    })
+}
 
 app.use(errorMiddleware)
 
